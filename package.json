@@ -21,6 +21,7 @@
   "homepage": "https://github.com/preboot/angularjs-webpack",
   "dependencies": {
     "angular": "^1.5.0",
+    "angularjs-scroll-glue": "^2.2.0",
     "socket.io-client": "^2.0.3"
   },
   "devDependencies": {
