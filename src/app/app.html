@@ -1,12 +1,10 @@
-
-
-  <!-- Images (and assets) are parsed and loaded from within the public directory -->
-  <!-- <img src="/img/logo.png"> -->
+<!-- Images (and assets) are parsed and loaded from within the public directory -->
+<!-- <img src="/img/logo.png"> -->
 <div class="chatbox">
   <div class="chat_top fn-clear">
-    <div class="logo"><img ng-src="{{vm.logo}}" width="190" height="60"  alt=""/></div>
+    <div class="logo"><img ng-src="{{vm.logo}}" width="190" height="60" alt="" /></div>
     <div class="uinfo fn-clear">
-      <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40"  alt=""/></div>
+      <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40" alt="" /></div>
       <div class="uname">
         河图<i class="fontico down" ng-mouseover="vm.onMouseover()"></i>
         <ul class="managerbox">
@@ -19,15 +17,15 @@
   <div class="chat_message fn-clear">
     <div class="chat_left">
       <div class="message_box" id="message_box">
-        
+
         <div class="msg_item fn-clear">
-          <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40"  alt=""/></div>
+          <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40" alt="" /></div>
           <div class="item_right">
             <div class="msg">近日，TIOBE发布了2014年9月的编程语言排行榜，Java、C++跌至历史最低点，前三名则没有变化，依旧是C、Java、Objective-C。</div>
             <div class="name_time">猫猫 · 3分钟前</div>
           </div>
         </div>
-        
+
         <!-- <div class="msg_item fn-clear">
           <div class="uface"><img src="images/hetu.jpg" width="40" height="40"  alt=""/></div>
           <div class="item_right">
@@ -35,16 +33,16 @@
             <div class="name_time">河图 · 30秒前</div>
           </div>
         </div> -->
-        
+
       </div>
       <div class="write_box">
-        <textarea id="message" name="message" class="write_area" placeholder="说点啥吧..."></textarea>
-        <input type="hidden" name="fromname" id="fromname" value="河图" />
-        <input type="hidden" name="to_uid" id="to_uid" value="0">
+        <textarea id="message" name="message" ng-model="vm.msgText" class="write_area" placeholder="说点啥吧..."></textarea>
+        <!-- <input type="hidden" name="fromname" id="fromname" value="河图" /> -->
+        <!-- <input type="hidden" name="to_uid" id="to_uid" value="0"> -->
         <div class="facebox fn-clear">
           <div class="expression"></div>
           <div class="chat_type" id="chat_type">群聊</div>
-          <button name="" class="sub_but">提 交</button>
+          <button name="" class="sub_but" ng-click="vm.onSubmit(vm.msgText)">提 交</button>
         </div>
       </div>
     </div>
