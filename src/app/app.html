@@ -18,10 +18,10 @@
     <div class="chat_left">
       <div class="message_box" id="message_box">
 
-        <div class="msg_item fn-clear">
+        <div class="msg_item fn-clear" ng-repeat="msg in vm.msgList">
           <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40" alt="" /></div>
           <div class="item_right">
-            <div class="msg">近日，TIOBE发布了2014年9月的编程语言排行榜，Java、C++跌至历史最低点，前三名则没有变化，依旧是C、Java、Objective-C。</div>
+            <div class="msg">{{msg.text}}</div>
             <div class="name_time">猫猫 · 3分钟前</div>
           </div>
         </div>

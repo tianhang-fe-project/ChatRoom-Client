@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 // import chatClient from './chatclient.js'
 
 class AppCtrl {
-  constructor() {
+  constructor($scope) {
     this.url = 'https://github.com/preboot/angular-webpack';
     console.log(logo);
     this.logo = logo;
@@ -50,7 +50,9 @@ class AppCtrl {
           if (msg.data.username !== this.userInfo.username) {
             console.log(msg.data.username + '说: ' + msg.data.text);
             //showMessage(msg.data);
-            this.msgList.push(msg);
+            console.log(msg);
+            this.msgList.push(msg.data);
+            $scope.$apply(); //this triggers a $digest
           }
           break;
         case 'broadcast_quit':
