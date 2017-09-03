@@ -1,13 +1,11 @@
-import logo from '../public/img/logo.png'
-import avatar from '../public/img/avatar/avatar1.jpg'
+import logo from '../../../public/img/logo.png'
+import avatar from '../../../public/img/avatar/avatar1.jpg'
 import io from 'socket.io-client';
-// import SockJS from 'sockjs-client'
-// import chatClient from './chatclient.js'
 
-class AppCtrl {
-  constructor($scope) {
-    this.url = 'https://github.com/preboot/angular-webpack';
-    console.log(logo);
+export default class ChatroomController {
+  constructor() {
+    console.log("chat room ctrl ..");
+
     this.logo = logo;
     this.avatar = avatar;
     this.mode = 'room';
@@ -15,7 +13,6 @@ class AppCtrl {
     this.msgList = [];
     //this.initClient();
 
-    /*
     var socket = io('http://localhost:3000?roomid=k12');
     this.socket = socket;
     console.log("socket:", socket)
@@ -68,7 +65,6 @@ class AppCtrl {
           break;
       }
     })
-    */
 
   }
 
@@ -93,54 +89,5 @@ class AppCtrl {
       type: 'roommsg'
     });
   }
-  sendGroupMsg(text, groupId) {
 
-  }
-
-
-
-
-
-  /*
-    initClient(){
-      let options ={
-        url : "http://localhost:8888/daemon"
-      };
-      let client = new chatClient(options,this.onClose,this.onOpen,this.onMessage)
-      
-    }
-  
-    sendMsg(msg,socketId){
-      
-    }
-  
-    sendGroupMsg(msg,roomId){
-      
-    }
-  
-    onOpen(){
-      console.log('open');
-      console.log(this)
-      this.send('join ' + JSON.stringify({
-             tid: "123456"
-        }));
-      this.send('post ' +'hello world!'); 
-    }
-  
-    onMessage(e){
-      console.log('msg');
-      console.log(e);
-      console.log('message:', e.data);
-    }
-  
-    onClose(){
-      console.log('close');
-    }*/
-
-  onMouseover() {
-    console.log("over...");
-    this.showMsgBox = true;
-  }
 }
-
-export default AppCtrl;
