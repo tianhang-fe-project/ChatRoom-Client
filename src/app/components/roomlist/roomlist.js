@@ -1,4 +1,4 @@
 import roomlistComponent from './roomlist.component.js';
-
-export default angular.module('roomlist', [])
+import modal from 'angular-ui-bootstrap/src/modal';
+export default angular.module('roomlist', [modal])
   .component('roomlist', roomlistComponent);

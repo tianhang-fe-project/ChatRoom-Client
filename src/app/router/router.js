@@ -2,7 +2,7 @@ import uiRouter from 'angular-ui-router';
 
 export default angular.module('app.router', [
   uiRouter,
-]).config(($stateProvider, $urlRouterProvider) => {
+]).config(($stateProvider, $urlRouterProvider, $locationProvider) => {
   $stateProvider
     .state('login', {
       url: '/login',
