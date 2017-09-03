@@ -60,6 +60,13 @@ section {
 }
 
 
+/*override bootstrap */
+
+* {
+    box-sizing: content-box !important;
+}
+
+
 /* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
 
 article,
