@@ -24,6 +24,7 @@
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "^1.0.3",
     "angularjs-scroll-glue": "^2.2.0",
+    "bootstrap": "^3.3.7",
     "socket.io-client": "^2.0.3"
   },
   "devDependencies": {

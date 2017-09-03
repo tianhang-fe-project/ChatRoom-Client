@@ -8,11 +8,26 @@ export default class RoomlistController {
     this.logo = logo;
     this.avatar = avatar;
     this.$uibModal = $uibModal;
-
+    console.log(this);
   }
 
-  joinRoom(id) {
-    console.log("heloo");
+  onCreate() {
+    // this.$uibModal
+    console.log("click ..");
+    let modalInstance = this.$uibModal.open({
+      animation: true,
+      component: 'createroom',
+      resolve: {
+        items: function() {
+          // return $ctrl.items;
+        }
+      }
+    });
 
+    modalInstance.result.then(function(selectedItem) {
+      // $ctrl.selected = selectedItem;
+    }, function() {
+      // $log.info('modal-component dismissed at: ' + new Date());
+    });
   }
 }
