@@ -1,9 +1,18 @@
-<div>
-  <div class="modal-header">
-    <h3 class="modal-title" id="modal-title-{{name}}">The {{name}} modal!</h3>
-  </div>
-  <div class="modal-body" id="modal-body-{{name}}">
-    Having multiple modals open at once is probably bad UX but it's technically possible.
-  </div>
-  <button class="btn btn-primary">btn</button>
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">Create a chatroom</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <form class="form-horizontal create-room-form" name="form" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : form.name.$invalid && vm.submitted }">
+      <label for="inputName" class="col-sm-2 control-label">Name：</label>
+      <div class="col-sm-8">
+        <input type="text" ng-model="vm.roomname" class="form-control" name="name" placeholder="Room name" required>
+        <span class="help-block" ng-show="form.name.$invalid && vm.submitted">Chatroom name is required</span>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button form="form" class="btn btn-primary" type="button" ng-click="vm.ok(form)">OK</button>
+  <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
 </div>

@@ -17,17 +17,21 @@ export default class RoomlistController {
     let modalInstance = this.$uibModal.open({
       animation: true,
       component: 'createroom',
-      resolve: {
-        items: function() {
-          // return $ctrl.items;
-        }
-      }
+      // resolve: {
+      //   items: function() {
+      //     return $ctrl.items;
+      //   }
+      // }
     });
 
-    modalInstance.result.then(function(selectedItem) {
-      // $ctrl.selected = selectedItem;
+    modalInstance.result.then(function(roomName) {
+      console.log(roomName);
     }, function() {
       // $log.info('modal-component dismissed at: ' + new Date());
     });
+  }
+
+  createChatRoom(roomName) {
+
   }
 }
