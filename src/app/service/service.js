@@ -2,6 +2,8 @@ import angular from 'angular';
 import loginSerivce from './login.service';
 
 
-// angular
-//   .module('app')
-//   .service('loginSerivce', loginSerivce)
+let serviceModule = angular
+  .module('serviceModule', [])
+  .service('loginSerivce', loginSerivce)
+
+export default serviceModule;

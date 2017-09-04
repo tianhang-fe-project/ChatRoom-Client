@@ -5,7 +5,7 @@ import avatar from '../../../public/img/avatar/avatar1.jpg'
 
 export default class RoomlistController {
   constructor($state, $uibModal, loginService) {
-    // 'ngInject';
+    'ngInject';
     console.log("room list ...");
     console.log($state);
     this.logo = logo;

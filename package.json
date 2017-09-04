@@ -21,6 +21,7 @@
   "homepage": "https://github.com/preboot/angularjs-webpack",
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-cookies": "^1.6.6",
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "^1.0.3",
     "angularjs-scroll-glue": "^2.2.0",
@@ -55,6 +56,7 @@
     "rimraf": "^2.5.1",
     "style-loader": "^0.13.0",
     "webpack": "2.2.0",
-    "webpack-dev-server": "2.2.0"
+    "webpack-dev-server": "2.2.0",
+    "ng-annotate-loader": "0.0.10"
   }
 }

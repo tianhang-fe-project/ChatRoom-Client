@@ -3,16 +3,18 @@ import AppComponent from './app.component.js';
 import luegg from 'angularjs-scroll-glue';
 import uiRouter from 'angular-ui-router';
 import appRouter from './router/router';
+import ngCookies from 'angular-cookies';
 // import { LoginService } from './service/login.service';
 // import loginService from './service/login.service';
 
 import components from './components/components';
+import serviceModule from './service/service';
+
+console.log(serviceModule);
 
 const MODULE_NAME = 'app';
 
-angular.module(MODULE_NAME, ['luegg.directives', uiRouter, appRouter.name, components.name])
+angular.module(MODULE_NAME, ['luegg.directives', ngCookies, uiRouter, appRouter.name, serviceModule.name, components.name])
   .component('app', AppComponent)
-  // .service('loginSerivce', loginService)
-  // .controller('AppCtrl', AppCtrl);
 
 export default MODULE_NAME;
