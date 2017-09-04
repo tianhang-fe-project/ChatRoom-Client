@@ -10,14 +10,21 @@ export class LoginService {
     let user = {
       email: email
     }
+    console.log(user);
     let today = new Date();
     let expired = new Date(today);
     expired.setDate(today.getDate() + 1); //Set expired date to tomorrow
-    this.$cookies.put('user', user, { expires: expired });
+    this.$cookies.put('user', email, { expires: expired });
+    console.log(this.$cookies.get('user'));
+    console.log(this.$cookies.get('user'));
   }
 
   isLogin() {
     return this.$cookies.get('user')
+  }
+
+  getCurrUserEmail() {
+    return this.$cookies.get('user');
   }
 
   logout() {

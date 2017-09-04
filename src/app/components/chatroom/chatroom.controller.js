@@ -3,7 +3,7 @@ import avatar from '../../../public/img/avatar/avatar1.jpg'
 import io from 'socket.io-client';
 
 export default class ChatroomController {
-  constructor($scope) {
+  constructor($scope, $stateParams, loginService) {
     console.log("chat room ctrl ..");
 
     this.logo = logo;
@@ -11,9 +11,18 @@ export default class ChatroomController {
     this.mode = 'room';
     this.userInfo = {};
     this.msgList = [];
+    this.loginService = loginService;
+    this.$scope = $scope;
     //this.initClient();
+    this.room_id = $stateParams.id;
+    this.checkLogin(() => {
+      this.initSocketIO();
+    });
 
-    var socket = io('http://localhost:3000?roomid=k12');
+  }
+
+  initSocketIO() {
+    let socket = io('http://localhost:3000?roomid=' + this.room_id);
     this.socket = socket;
     console.log("socket:", socket)
     socket.on('connect', function() {
@@ -37,9 +46,9 @@ export default class ChatroomController {
       switch (msg.event) {
         case 'join':
           if (msg.data.username) {
-            console.log(msg.data.username + '加入了聊天室');
+            console.log(msg.data.username + 'join the chatroom');
             var data = {
-              text: msg.data.username + '加入了聊天室'
+              text: msg.data.username + 'join the chatroom'
             };
             //showNotice(data);
           }
@@ -51,25 +60,24 @@ export default class ChatroomController {
             //showMessage(msg.data);
             console.log(msg);
             this.msgList.push(msg.data);
-            $scope.$apply(); //this triggers a $digest
+            this.$scope.$apply(); //this triggers a $digest
           }
           break;
         case 'broadcast_quit':
           if (msg.data.username) {
-            console.log(msg.data.username + '离开了聊天室');
+            console.log(msg.data.username + 'leave the chatroom');
             var data = {
-              text: msg.data.username + '离开了聊天室'
+              text: msg.data.username + 'leave the chatroom'
             };
             //showNotice(data);
           }
           break;
       }
     })
-
   }
 
   onSubmit(msg) {
-    this.sendRoomMsg(msg, 'k12');
+    this.sendRoomMsg(msg, this.room_id);
   }
 
   sendMsg(text, socketId) {
@@ -88,6 +96,16 @@ export default class ChatroomController {
       id: roomId,
       type: 'roommsg'
     });
+  }
+
+  checkLogin(cb) {
+    if (!this.loginService.isLogin()) {
+      this.loginService.openLoginDlg((email) => {
+        cb();
+      });
+    } else {
+      cb();
+    }
   }
 
 }

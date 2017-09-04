@@ -2,16 +2,18 @@ export class ChatRoomService {
   constructor($http) {
     'ngInject';
     this.$http = $http;
+    this.URL = 'http://localhost:3000';
   }
 
-  createChatRoom() {
-    let data = {};
+  createChatRoom(roomInfo) {
     let config = {};
-    return this.$http.post('/chatroom', data, config);
+    console.log(roomInfo);
+    return this.$http.post(this.URL + '/chatroom', roomInfo, config);
   }
 
   fetchRoomList() {
-    this.$http.get('/chatroom', config).then(successCallback, errorCallback);
+    // let config = {};
+    return this.$http.get(this.URL + '/chatroom');
   }
 
 }

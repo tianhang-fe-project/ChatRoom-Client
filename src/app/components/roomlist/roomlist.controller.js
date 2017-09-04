@@ -12,10 +12,17 @@ export default class RoomlistController {
     this.roomList = [];
     this.loginService = loginService;
     this.chatRoomService = chatRoomService;
+    this.loadRoomList();
   }
 
   onCreate() {
     console.log("click ..");
+    this.checkLogin(() => {
+      this.openCreateDlg();
+    });
+  }
+
+  openCreateDlg() {
     let modalInstance = this.$uibModal.open({
       animation: true,
       component: 'createroom',
@@ -33,23 +40,32 @@ export default class RoomlistController {
     //call api
     this.chatRoomService.fetchRoomList().then((data) => {
       console.log(data);
+      this.roomList = data.data.roomDetail;
+      console.log(this.roomList);
     }, (error) => {
       console.log(error);
     });
   }
 
+
   createChatRoom(roomName) {
     const roomID = new Date().getTime();
+    let email = this.loginService.getCurrUserEmail();
+
     let room = {
       id: roomID,
-      // id: 'k12',
-      name: roomName
+      name: roomName,
+      admin: email
     };
-    this.roomList.push(room);
+    console.log(email);
+    // this.roomList.push(room);
 
+    // console.log(currUser);
+    console.log(room);
     //call api
-    this.chatRoomService.createChatRoom().then((data) => {
+    this.chatRoomService.createChatRoom(room).then((data) => {
       console.log(data);
+      this.loadRoomList();
     }, (error) => {
       console.log(error);
     });
@@ -64,6 +80,16 @@ export default class RoomlistController {
         console.log(email);
         this.$state.go('chatroom', params);
       });
+    }
+  }
+
+  checkLogin(cb) {
+    if (!this.loginService.isLogin()) {
+      this.loginService.openLoginDlg((email) => {
+        cb();
+      });
+    } else {
+      cb();
     }
   }
 

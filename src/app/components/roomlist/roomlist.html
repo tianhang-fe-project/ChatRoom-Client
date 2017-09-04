@@ -12,12 +12,12 @@
     <ul style="overflow-y:scroll;height:530px;">
       <li class="room-item" ng-repeat="room in vm.roomList">
         <div class="room-box">
-          <a ng-click="vm.joinRoom({id:room.id})">
-            <span>CHAT ROOM ID - {{room.id}}</span>
+          <a ng-click="vm.joinRoom({id:room.room_id})">
+            <span>CHAT ROOM ID - {{room.room_id}}</span>
           </a>
         </div>
         <span class="room-title">
-          <a ng-click="vm.joinRoom({id:room.id})">
+          <a ng-click="vm.joinRoom({id:room.room_id})">
             <span>{{room.name}}</span>
         </a>
         </span>
