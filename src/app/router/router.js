@@ -11,7 +11,7 @@ export default angular.module('app.router', [
       url: '/roomlist',
       component: 'roomlist'
     }).state('chatroom', {
-      url: '/chatroom',
+      url: '/:id/chatroom',
       component: 'chatroom'
     });
   $urlRouterProvider.otherwise('/login');

@@ -3,7 +3,7 @@ import avatar from '../../../public/img/avatar/avatar1.jpg'
 import io from 'socket.io-client';
 
 export default class ChatroomController {
-  constructor() {
+  constructor($scope) {
     console.log("chat room ctrl ..");
 
     this.logo = logo;
