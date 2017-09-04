@@ -1,13 +1,13 @@
 export class LoginService {
-  constructor($cookies) {
+  constructor($cookies, $uibModal) {
     // 'ngInject';
     this.$cookies = $cookies;
+    this.$uibModal = $uibModal;
   }
 
-  login(username, email) {
+  login(email) {
     //set the expired time
     let user = {
-      name: username,
       email: email
     }
     let today = new Date();
@@ -20,6 +20,25 @@ export class LoginService {
     return this.$cookies.get('user')
   }
 
+  logout() {
+    this.$cookies.remove('user');
+  }
+
+  openLoginDlg(cb) {
+    console.log("click ..");
+    let modalInstance = this.$uibModal.open({
+      animation: true,
+      component: 'logindlg',
+    });
+
+    modalInstance.result.then((email) => {
+      this.login(email);
+      cb(email)
+    }, function() {
+
+    });
+  }
+
 }
 
-LoginService.$inject = ['$cookies'];
+LoginService.$inject = ['$cookies', '$uibModal'];

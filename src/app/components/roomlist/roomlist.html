@@ -4,7 +4,7 @@
     <div class="uinfo fn-clear">
       <div class="uname">
         <a ng-click="vm.onCreate()">create</a>
-        <a>exit</a>
+        <a ng-click="vm.exit()">exit</a>
       </div>
     </div>
   </div>
@@ -12,12 +12,12 @@
     <ul style="overflow-y:scroll;height:530px;">
       <li class="room-item" ng-repeat="room in vm.roomList">
         <div class="room-box">
-          <a ui-sref="chatroom({id:room.id})">
+          <a ng-click="vm.joinRoom({id:room.id})">
             <span>CHAT ROOM ID - {{room.id}}</span>
           </a>
         </div>
         <span class="room-title">
-          <a ui-sref="chatroom({id:room.id})">
+          <a ng-click="vm.joinRoom({id:room.id})">
             <span>{{room.name}}</span>
         </a>
         </span>

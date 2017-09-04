@@ -8,13 +8,13 @@ import ngCookies from 'angular-cookies';
 // import loginService from './service/login.service';
 
 import components from './components/components';
-import serviceModule from './service/service';
+// import serviceModule from './service/service';
 
-console.log(serviceModule);
+// console.log(serviceModule);
 
 const MODULE_NAME = 'app';
 
-angular.module(MODULE_NAME, ['luegg.directives', ngCookies, uiRouter, appRouter.name, serviceModule.name, components.name])
+angular.module(MODULE_NAME, ['luegg.directives', ngCookies, uiRouter, appRouter.name, components.name])
   .component('app', AppComponent)
 
 export default MODULE_NAME;

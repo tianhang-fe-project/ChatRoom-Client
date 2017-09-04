@@ -1,20 +1,17 @@
 import logo from '../../../public/img/logo.png'
 import avatar from '../../../public/img/avatar/avatar1.jpg'
 
-
-
 export default class RoomlistController {
-  constructor($state, $uibModal, loginService) {
+  constructor($state, $uibModal, loginService, chatRoomService) {
     'ngInject';
     console.log("room list ...");
-    console.log($state);
     this.logo = logo;
     this.avatar = avatar;
     this.$uibModal = $uibModal;
+    this.$state = $state;
     this.roomList = [];
-    console.log(this);
-    // this.loginService = loginService;
-    // console.log(loginService);
+    this.loginService = loginService;
+    this.chatRoomService = chatRoomService;
   }
 
   onCreate() {
@@ -22,30 +19,58 @@ export default class RoomlistController {
     let modalInstance = this.$uibModal.open({
       animation: true,
       component: 'createroom',
-      // resolve: {
-      //   items: function() {
-      //     return $ctrl.items;
-      //   }
-      // }
     });
 
     modalInstance.result.then((roomName) => {
       console.log(roomName);
       this.createChatRoom(roomName);
     }, function() {
-      // $log.info('modal-component dismissed at: ' + new Date());
+      angular.noop();
+    });
+  }
+
+  loadRoomList() {
+    //call api
+    this.chatRoomService.fetchRoomList().then((data) => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
     });
   }
 
   createChatRoom(roomName) {
     const roomID = new Date().getTime();
     let room = {
-      // id: roomID,
-      id: 'k12',
+      id: roomID,
+      // id: 'k12',
       name: roomName
     };
     this.roomList.push(room);
+
+    //call api
+    this.chatRoomService.createChatRoom().then((data) => {
+      console.log(data);
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  joinRoom(params) {
+    console.log("on click ...");
+    if (this.loginService.isLogin()) {
+      this.$state.go('chatroom', params);
+    } else {
+      this.loginService.openLoginDlg((email) => {
+        console.log(email);
+        this.$state.go('chatroom', params);
+      });
+    }
+  }
+
+  exit() {
+    console.log('exit...');
+    this.loginService.logout();
   }
 }
 
-RoomlistController.$inject = ['$state', '$uibModal', 'loginService'];
+RoomlistController.$inject = ['$state', '$uibModal', 'loginService', 'chatRoomService'];
