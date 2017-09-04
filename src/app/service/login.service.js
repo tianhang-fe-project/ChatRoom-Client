@@ -1,6 +1,6 @@
 export class LoginService {
   constructor($cookies) {
-    'ngInject';
+    // 'ngInject';
     this.$cookies = $cookies;
   }
 

@@ -4,7 +4,7 @@ import luegg from 'angularjs-scroll-glue';
 import uiRouter from 'angular-ui-router';
 import appRouter from './router/router';
 // import { LoginService } from './service/login.service';
-import loginService from './service/login.service';
+// import loginService from './service/login.service';
 
 import components from './components/components';
 
