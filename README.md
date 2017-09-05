@@ -22,6 +22,8 @@ $ npm start
 
 go to [http://localhost:8080](http://localhost:8080) in your browser.
 
+server IP port : 'http://localhost:3000';
+
 # Table of Contents
 
 * [Getting Started](#getting-started)
