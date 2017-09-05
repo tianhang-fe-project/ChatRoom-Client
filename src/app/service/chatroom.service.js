@@ -23,6 +23,10 @@ export class ChatRoomService {
     return this.$http.get(this.URL + '/message/' + roomid, config);
   }
 
+  fetchRoomUserList(roomid) {
+    return this.$http.get(this.URL + '/user/' + roomid);
+  }
+
 }
 
 ChatRoomService.$inject = ['$http'];

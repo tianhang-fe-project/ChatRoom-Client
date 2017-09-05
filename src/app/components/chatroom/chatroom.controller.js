@@ -18,14 +18,21 @@ export default class ChatroomController {
       this.initSocketIO();
     });
     this.chatRoomService = chatRoomService;
-    this.page = 0;
-    this.loadMsgs(this.room_id, 0);
+    this.loadMsgs(this.room_id);
+    this.loadUserList(this.room_id);
   }
 
-  loadMsgs(roomid, page) {
-    this.chatRoomService.fetchMsgList(roomid, page).then((data) => {
+  loadMsgs(roomid) {
+    this.chatRoomService.fetchMsgList(roomid).then((data) => {
       console.log(data.data);
       this.msgList = data.data.messageList;
+    });
+  }
+
+  loadUserList(roomid) {
+    this.chatRoomService.fetchRoomUserList(roomid).then((data) => {
+      console.log(data.data);
+      this.userList = data.data.userList;
     });
   }
 
@@ -61,6 +68,7 @@ export default class ChatroomController {
               text: msg.data.username + 'join the chatroom'
             };
             //showNotice(data);
+            this.loadUserList(this.room_id);
           }
           break;
         case 'broadcast_say':
@@ -79,9 +87,10 @@ export default class ChatroomController {
             var data = {
               text: msg.data.username + 'leave the chatroom'
             };
-            //showNotice(data);
+            this.loadUserList(this.room_id);
           }
           break;
+
       }
     })
   }
@@ -89,15 +98,6 @@ export default class ChatroomController {
   onSubmit(msg) {
     this.msgText = "";
     this.sendRoomMsg(msg, this.room_id, this.useremail);
-  }
-
-  sendMsg(text, socketId) {
-    this.socket.emit('msg', {
-      username: 'tianhang',
-      text: text,
-      id: socketId,
-      type: 'msg'
-    });
   }
 
   sendRoomMsg(text, roomId, useremail) {
@@ -117,6 +117,13 @@ export default class ChatroomController {
     } else {
       cb();
     }
+  }
+
+  exit() {
+    // disconnect
+    this.socket.emit('leave', {
+      username: this.useremail
+    });
   }
 
 }

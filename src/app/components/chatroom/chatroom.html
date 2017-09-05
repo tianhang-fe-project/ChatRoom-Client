@@ -6,11 +6,11 @@
     <div class="uinfo fn-clear">
       <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40" alt="" /></div>
       <div class="uname">
-        {{vm.username}}<i class="fontico down" ng-mouseover="vm.onMouseover()"></i>
+        {{vm.useremail}} <i class="glyphicon glyphicon-log-out logout-icon" ng-click="vm.exit()"></i>
         <!-- <ul class="managerbox">
           <li><a href="#"><i class="fontico lock"></i>修改密码</a></li>
           <li><a href="#"><i class="fontico logout"></i>退出登录</a></li> -->
-        </ul>
+        <!-- </ul> -->
       </div>
     </div>
   </div>
@@ -40,11 +40,24 @@
       </div>
     </div>
     <div class="chat_right">
-      <ul class="user_list" title="双击用户私聊">
+      <ul class="user_list">
         <li class="fn-clear selected"><em>All Users</em></li>
-        <li class="fn-clear" data-id="1"><span><img src="images/hetu.jpg" width="30" height="30"  alt=""/></span><em>河图</em><small class="online" title="在线"></small></li>
-        <li class="fn-clear" data-id="2"><span><img src="images/53f44283a4347.jpg" width="30" height="30"  alt=""/></span><em>猫猫</em><small class="online" title="在线"></small></li>
-        <li class="fn-clear" data-id="3"><span><img src="images/53f442834079a.jpg" width="30" height="30"  alt=""/></span><em>白猫</em><small class="offline" title="离线"></small></li>
+        <li class="fn-clear" data-id="1" ng-repeat="user in vm.userList">
+          <i class="glyphicon glyphicon-remove-circle remove_icon"></i>
+          <span>
+    
+            <img src="{{vm.avatar}}" width="30" height="30"  alt=""/>
+            
+          </span>
+          <em class="user_name">{{user}}
+              
+          </em>
+          <!-- <small class="online" title="online"></small> -->
+
+        </li>
+        <!-- <li class="fn-clear" data-id="1"><span><img src="images/hetu.jpg" width="30" height="30"  alt=""/></span><em>河图</em><small class="online" title="在线"></small></li> -->
+        <!-- <li class="fn-clear" data-id="2"><span><img src="images/53f44283a4347.jpg" width="30" height="30"  alt=""/></span><em>猫猫</em><small class="online" title="在线"></small></li> -->
+        <!-- <li class="fn-clear" data-id="3"><span><img src="images/53f442834079a.jpg" width="30" height="30"  alt=""/></span><em>白猫</em><small class="offline" title="离线"></small></li> -->
       </ul>
     </div>
   </div>

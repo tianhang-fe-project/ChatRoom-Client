@@ -296,3 +296,23 @@ small.offline {
     line-height: 30px;
     padding-left: 10px;
 }
+
+.user_name {
+    width: 70%;
+    overflow-x: hidden;
+}
+
+.logout-icon {
+    cursor: pointer;
+    /* margin-left: 1%; */
+}
+
+.remove_icon {
+    color: red;
+    cursor: pointer;
+    /* float: right; */
+    /* position: relative; */
+    /* right: 0;
+    margin-top: -10px; */
+    /* float: left; */
+}
