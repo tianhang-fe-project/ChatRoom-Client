@@ -19,7 +19,10 @@
       <div class="message_box" id="message_box" scroll-glue>
 
         <div class="msg_item fn-clear" ng-repeat="msg in vm.msgList">
-          <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40" alt="" /></div>
+          <div class="uface">
+            <img ng-src="{{vm.avatar}}" width="40" height="40" alt="" ng-if="vm.useremail == msg.useremail" />
+            <img ng-src="{{vm.avatar2}}" width="40" height="40" alt="" ng-if="vm.useremail != msg.useremail" />
+          </div>
           <div class="item_right">
             <div class="msg" ng-class="{'own':msg.useremail == vm.useremail}">{{msg.text}}</div>
             <div class="name_time">{{msg.useremail}} · {{msg.timestamp | date:'medium'}}</div>
@@ -43,10 +46,11 @@
       <ul class="user_list">
         <li class="fn-clear selected"><em>All Users</em></li>
         <li class="fn-clear" data-id="1" ng-repeat="user in vm.userList">
-          <i class="glyphicon glyphicon-remove-circle remove_icon"></i>
+          <a class="glyphicon glyphicon-remove-circle remove_icon" ng-click="vm.removeUser(user)" ng-if="(vm.roomAdmin == vm.useremail) && (user != vm.useremail)"></a>
           <span>
     
-            <img src="{{vm.avatar}}" width="30" height="30"  alt=""/>
+            <img src="{{vm.avatar}}" width="30" height="30"  alt="" ng-if="vm.useremail == user"/>
+            <img src="{{vm.avatar2}}" width="30" height="30"  alt="" ng-if="vm.useremail !== user"/>
             
           </span>
           <em class="user_name">{{user}}

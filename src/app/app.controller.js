@@ -6,14 +6,11 @@ import io from 'socket.io-client';
 
 class AppCtrl {
   constructor($scope) {
-    this.url = 'https://github.com/preboot/angular-webpack';
     console.log(logo);
     this.logo = logo;
     this.avatar = avatar;
-    this.mode = 'room';
     this.userInfo = {};
     this.msgList = [];
-    //this.initClient();
   }
 }
 

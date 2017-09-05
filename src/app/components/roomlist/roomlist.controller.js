@@ -79,7 +79,7 @@ export default class RoomlistController {
       this.loginService.openLoginDlg((email) => {
         console.log(email);
         this.$state.go('chatroom', params);
-      });
+      }, () => {});
     }
   }
 
@@ -87,7 +87,7 @@ export default class RoomlistController {
     if (!this.loginService.isLogin()) {
       this.loginService.openLoginDlg((email) => {
         cb();
-      });
+      }, () => {});
     } else {
       cb();
     }

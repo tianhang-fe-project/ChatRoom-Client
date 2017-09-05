@@ -3,8 +3,10 @@
     <div class="logo"><img ng-src="{{vm.logo}}" width="190" height="60" alt="" /></div>
     <div class="uinfo fn-clear">
       <div class="uname">
-        <a ng-click="vm.onCreate()">create</a>
-        <a ng-click="vm.exit()">exit</a>
+        <a ng-click="vm.onCreate()" class="glyphicon glyphicon-plus"></a>
+      </div>
+      <div class="uname">
+        <a ng-click="vm.exit()" class="glyphicon glyphicon-log-out"></a>
       </div>
     </div>
   </div>

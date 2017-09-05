@@ -21,7 +21,15 @@
     background-color: whitesmoke;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border-radius: 5px
+    border-radius: 5px;
+    text-align: center;
+    /* vertical-align: center; */
+    display: flex;
+    justify-content: center;
+    /* align horizontal */
+    align-items: center;
+    cursor: pointer;
+    /* align vertical */
 }
 
 .room-title {
@@ -29,4 +37,5 @@
     display: block;
     margin: 1% auto;
     width: 40%;
+    cursor: pointer;
 }

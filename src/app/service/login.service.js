@@ -31,7 +31,7 @@ export class LoginService {
     this.$cookies.remove('user');
   }
 
-  openLoginDlg(cb) {
+  openLoginDlg(cb, cb2) {
     console.log("click ..");
     let modalInstance = this.$uibModal.open({
       animation: true,
@@ -42,7 +42,7 @@ export class LoginService {
       this.login(email);
       cb(email)
     }, function() {
-
+      cb2();
     });
   }
 

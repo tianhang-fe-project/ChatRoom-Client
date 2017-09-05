@@ -1,18 +1,21 @@
 import logo from '../../../public/img/logo.png'
 import avatar from '../../../public/img/avatar/avatar1.jpg'
+import avatar2 from '../../../public/img/avatar/avatar2.jpg'
 import io from 'socket.io-client';
 
 export default class ChatroomController {
-  constructor($scope, $stateParams, loginService, chatRoomService) {
-    console.log("chat room ctrl ..");
+  constructor($scope, $stateParams, loginService, chatRoomService, $state, $timeout) {
 
     this.logo = logo;
     this.avatar = avatar;
+    this.avatar2 = avatar2;
     this.mode = 'room';
     this.userInfo = {};
     this.msgList = [];
     this.loginService = loginService;
     this.$scope = $scope;
+    this.$state = $state;
+    this.$timeout = $timeout;
     this.room_id = $stateParams.id;
     this.checkLogin(() => {
       this.initSocketIO();
@@ -20,6 +23,7 @@ export default class ChatroomController {
     this.chatRoomService = chatRoomService;
     this.loadMsgs(this.room_id);
     this.loadUserList(this.room_id);
+    this.loadChatRoomInfo(this.room_id);
   }
 
   loadMsgs(roomid) {
@@ -31,14 +35,25 @@ export default class ChatroomController {
 
   loadUserList(roomid) {
     this.chatRoomService.fetchRoomUserList(roomid).then((data) => {
+      console.log('load user list ..');
       console.log(data.data);
       this.userList = data.data.userList;
     });
   }
 
+  loadChatRoomInfo(roomid) {
+    this.chatRoomService.fetchRoomInfo(roomid).then((data) => {
+      console.log(data.data);
+      // this.userList = data.data.userList;
+      this.roomAdmin = data.data.roomInfo.admin;
+    });
+  }
+
   initSocketIO() {
     this.useremail = this.loginService.getCurrUserEmail();
-    let socket = io('http://localhost:3000?roomid=' + this.room_id);
+    // 'ws://localhost:3000', {transports: ['websocket']}
+    // let socket = io('http://127.0.0.1:3000?roomid=' + this.room_id);
+    let socket = io('ws://127.0.0.1:3000?roomid=' + this.room_id, { transports: ['websocket'] });
     this.socket = socket;
     socket.on('connect', () => {
       console.log("connect ...");
@@ -48,10 +63,6 @@ export default class ChatroomController {
       this.socket.emit('join', {
         username: this.useremail
       });
-    });
-
-    socket.on('event', function(data) {
-      console.log(data);
     });
 
     socket.on('disconnect', function() {
@@ -67,19 +78,13 @@ export default class ChatroomController {
             var data = {
               text: msg.data.username + 'join the chatroom'
             };
-            //showNotice(data);
             this.loadUserList(this.room_id);
           }
           break;
         case 'broadcast_say':
-          // console.log("this:", this)
-          // if (msg.data.username !== this.userInfo.username) {
           console.log(msg.data.username + 'say: ' + msg.data.text);
-          //showMessage(msg.data);
-          console.log(msg);
           this.msgList.push(msg.data);
           this.$scope.$apply(); //this triggers a $digest
-          // }
           break;
         case 'broadcast_quit':
           if (msg.data.username) {
@@ -88,6 +93,9 @@ export default class ChatroomController {
               text: msg.data.username + 'leave the chatroom'
             };
             this.loadUserList(this.room_id);
+            if (msg.data.username === this.useremail) {
+              this.goBack();
+            }
           }
           break;
 
@@ -113,6 +121,8 @@ export default class ChatroomController {
     if (!this.loginService.isLogin()) {
       this.loginService.openLoginDlg((email) => {
         cb();
+      }, () => {
+        this.$state.go('roomlist');
       });
     } else {
       cb();
@@ -124,6 +134,28 @@ export default class ChatroomController {
     this.socket.emit('leave', {
       username: this.useremail
     });
+    this.loginService.logout();
+    this.goBack();
+  }
+
+  removeUser(email) {
+    console.log(email)
+    console.log(this.useremail)
+    this.socket.emit('leave', {
+      username: email
+    });
+    //db save data delay
+    // this.$timeout(() => {
+    this.loadUserList(this.room_id);
+    // }, 100);
+
+    // if (email === this.useremail) {
+    //   this.goBack();
+    // }
+  }
+
+  goBack() {
+    this.$state.go('roomlist');
   }
 
 }
