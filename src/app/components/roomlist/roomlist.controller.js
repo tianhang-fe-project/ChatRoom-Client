@@ -13,6 +13,7 @@ export default class RoomlistController {
     this.loginService = loginService;
     this.chatRoomService = chatRoomService;
     this.loadRoomList();
+    this.isLogin = this.loginService.isLogin();
   }
 
   onCreate() {
@@ -96,6 +97,7 @@ export default class RoomlistController {
   exit() {
     console.log('exit...');
     this.loginService.logout();
+    this.$state.reload();
   }
 }
 

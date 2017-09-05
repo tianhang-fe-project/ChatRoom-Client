@@ -5,7 +5,7 @@
       <div class="uname">
         <a ng-click="vm.onCreate()" class="glyphicon glyphicon-plus"></a>
       </div>
-      <div class="uname">
+      <div class="uname" ng-if="vm.isLogin">
         <a ng-click="vm.exit()" class="glyphicon glyphicon-log-out"></a>
       </div>
     </div>
