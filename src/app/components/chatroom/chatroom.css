@@ -233,7 +233,7 @@
 .user_list li {
     padding: 10px 20px;
     color: #2E4059;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .user_list li:hover,
@@ -253,8 +253,15 @@
     display: block;
     float: left;
     height: 30px;
-    line-height: 30px;
+    line-height: 20px;
 }
+
+
+/* .user_list li a {
+    display: block;
+    float: right;
+    height: 30px;
+} */
 
 .user_list li small {
     width: 10px;
@@ -282,24 +289,19 @@ small.offline {
 }
 
 
-/*expression - 表情,有待增加*/
+/*expression */
 
 .expression {
     float: left;
 }
 
 
-/*chat_type - 聊天性质,私聊|群聊*/
+/*chat_type */
 
 .chat_type {
     float: left;
     line-height: 30px;
     padding-left: 10px;
-}
-
-.user_name {
-    width: 70%;
-    overflow-x: hidden;
 }
 
 .logout-icon {
@@ -310,9 +312,11 @@ small.offline {
 .remove_icon {
     color: red;
     cursor: pointer;
-    /* float: right; */
-    /* position: relative; */
+    float: right;
+    position: relative;
     /* right: 0;
     margin-top: -10px; */
     /* float: left; */
 }
+
+.userlist {}
