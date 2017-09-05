@@ -3,7 +3,7 @@ import avatar from '../../../public/img/avatar/avatar1.jpg'
 import io from 'socket.io-client';
 
 export default class ChatroomController {
-  constructor($scope, $stateParams, loginService) {
+  constructor($scope, $stateParams, loginService, chatRoomService) {
     console.log("chat room ctrl ..");
 
     this.logo = logo;
@@ -13,23 +13,33 @@ export default class ChatroomController {
     this.msgList = [];
     this.loginService = loginService;
     this.$scope = $scope;
-    //this.initClient();
     this.room_id = $stateParams.id;
     this.checkLogin(() => {
       this.initSocketIO();
     });
+    this.chatRoomService = chatRoomService;
+    this.page = 0;
+    this.loadMsgs(this.room_id, 0);
+  }
 
+  loadMsgs(roomid, page) {
+    this.chatRoomService.fetchMsgList(roomid, page).then((data) => {
+      console.log(data.data);
+      this.msgList = data.data.messageList;
+    });
   }
 
   initSocketIO() {
+    this.useremail = this.loginService.getCurrUserEmail();
     let socket = io('http://localhost:3000?roomid=' + this.room_id);
     this.socket = socket;
-    console.log("socket:", socket)
-    socket.on('connect', function() {
+    socket.on('connect', () => {
       console.log("connect ...");
-      console.log("socket id:", socket.id)
-      socket.emit('join', {
-        username: 'tianhang'
+      console.log({
+        username: this.useremail
+      });
+      this.socket.emit('join', {
+        username: this.useremail
       });
     });
 
@@ -55,13 +65,13 @@ export default class ChatroomController {
           break;
         case 'broadcast_say':
           // console.log("this:", this)
-          if (msg.data.username !== this.userInfo.username) {
-            console.log(msg.data.username + '说: ' + msg.data.text);
-            //showMessage(msg.data);
-            console.log(msg);
-            this.msgList.push(msg.data);
-            this.$scope.$apply(); //this triggers a $digest
-          }
+          // if (msg.data.username !== this.userInfo.username) {
+          console.log(msg.data.username + 'say: ' + msg.data.text);
+          //showMessage(msg.data);
+          console.log(msg);
+          this.msgList.push(msg.data);
+          this.$scope.$apply(); //this triggers a $digest
+          // }
           break;
         case 'broadcast_quit':
           if (msg.data.username) {
@@ -77,7 +87,8 @@ export default class ChatroomController {
   }
 
   onSubmit(msg) {
-    this.sendRoomMsg(msg, this.room_id);
+    this.msgText = "";
+    this.sendRoomMsg(msg, this.room_id, this.useremail);
   }
 
   sendMsg(text, socketId) {
@@ -89,11 +100,11 @@ export default class ChatroomController {
     });
   }
 
-  sendRoomMsg(text, roomId) {
+  sendRoomMsg(text, roomId, useremail) {
     this.socket.emit('roommsg', {
-      username: 'tianhang',
+      username: useremail,
       text: text,
-      id: roomId,
+      room_id: roomId,
       type: 'roommsg'
     });
   }

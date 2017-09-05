@@ -16,6 +16,13 @@ export class ChatRoomService {
     return this.$http.get(this.URL + '/chatroom');
   }
 
+  fetchMsgList(roomid, page = 0) {
+    let config = {
+      params: { page: page }
+    }
+    return this.$http.get(this.URL + '/message/' + roomid, config);
+  }
+
 }
 
 ChatRoomService.$inject = ['$http'];

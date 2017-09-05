@@ -6,10 +6,10 @@
     <div class="uinfo fn-clear">
       <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40" alt="" /></div>
       <div class="uname">
-        河图<i class="fontico down" ng-mouseover="vm.onMouseover()"></i>
-        <ul class="managerbox">
+        {{vm.username}}<i class="fontico down" ng-mouseover="vm.onMouseover()"></i>
+        <!-- <ul class="managerbox">
           <li><a href="#"><i class="fontico lock"></i>修改密码</a></li>
-          <li><a href="#"><i class="fontico logout"></i>退出登录</a></li>
+          <li><a href="#"><i class="fontico logout"></i>退出登录</a></li> -->
         </ul>
       </div>
     </div>
@@ -21,27 +21,27 @@
         <div class="msg_item fn-clear" ng-repeat="msg in vm.msgList">
           <div class="uface"><img ng-src="{{vm.avatar}}" width="40" height="40" alt="" /></div>
           <div class="item_right">
-            <div class="msg">{{msg.text}}</div>
-            <div class="name_time">猫猫 · 3分钟前</div>
+            <div class="msg" ng-class="{'own':msg.useremail == vm.useremail}">{{msg.text}}</div>
+            <div class="name_time">{{msg.useremail}} · {{msg.timestamp | date:'medium'}}</div>
           </div>
         </div>
 
       </div>
 
       <div class="write_box">
-        <textarea id="message" name="message" ng-model="vm.msgText" class="write_area" placeholder="说点啥吧..."></textarea>
+        <textarea id="message" name="message" ng-model="vm.msgText" class="write_area" placeholder="Say something..."></textarea>
         <!-- <input type="hidden" name="fromname" id="fromname" value="河图" /> -->
         <!-- <input type="hidden" name="to_uid" id="to_uid" value="0"> -->
         <div class="facebox fn-clear">
           <div class="expression"></div>
-          <div class="chat_type" id="chat_type">群聊</div>
-          <button name="" class="sub_but" ng-click="vm.onSubmit(vm.msgText)">提 交</button>
+          <div class="chat_type" id="chat_type">ChatRoom</div>
+          <button name="" class="sub_but" ng-click="vm.onSubmit(vm.msgText)">Send</button>
         </div>
       </div>
     </div>
     <div class="chat_right">
       <ul class="user_list" title="双击用户私聊">
-        <li class="fn-clear selected"><em>所有用户</em></li>
+        <li class="fn-clear selected"><em>All Users</em></li>
         <li class="fn-clear" data-id="1"><span><img src="images/hetu.jpg" width="30" height="30"  alt=""/></span><em>河图</em><small class="online" title="在线"></small></li>
         <li class="fn-clear" data-id="2"><span><img src="images/53f44283a4347.jpg" width="30" height="30"  alt=""/></span><em>猫猫</em><small class="online" title="在线"></small></li>
         <li class="fn-clear" data-id="3"><span><img src="images/53f442834079a.jpg" width="30" height="30"  alt=""/></span><em>白猫</em><small class="offline" title="离线"></small></li>
