@@ -6,7 +6,7 @@
 
 ```bash
 # clone our repo
-$ git clone https://github.com/preboot/angularjs-webpack.git my-app
+$ git clone https://github.com/tianhang-fe-project/ChatRoom-Client.git my-app
 
 # change directory to your app
 $ cd my-app
