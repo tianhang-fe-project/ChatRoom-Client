@@ -1,4 +1,6 @@
 
+<img src="https://github.com/tianhang-fe-project/ChatRoom-Client/blob/master/Screen1111.png" />
+
 
 ### Quick start
 
