@@ -144,14 +144,9 @@ export default class ChatroomController {
     this.socket.emit('leave', {
       username: email
     });
-    //db save data delay
-    // this.$timeout(() => {
-    this.loadUserList(this.room_id);
-    // }, 100);
 
-    // if (email === this.useremail) {
-    //   this.goBack();
-    // }
+    // this.loadUserList(this.room_id);
+    this.$state.reload();
   }
 
   goBack() {
