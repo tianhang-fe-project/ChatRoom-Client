@@ -1,4 +1,5 @@
 import logo from '../../../public/img/logo.png'
+import chatroombg from '../../../public/img/chatroombg.jpg'
 import avatar from '../../../public/img/avatar/avatar1.jpg'
 
 export default class RoomlistController {
@@ -9,6 +10,7 @@ export default class RoomlistController {
     this.avatar = avatar;
     this.$uibModal = $uibModal;
     this.$state = $state;
+    this.chatroombg = chatroombg;
     this.roomList = [];
     this.loginService = loginService;
     this.chatRoomService = chatRoomService;
