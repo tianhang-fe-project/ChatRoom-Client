@@ -3,6 +3,10 @@ export class LoginService {
     // 'ngInject';
     this.$cookies = $cookies;
     this.$uibModal = $uibModal;
+    let today = new Date();
+    let expired = new Date(today);
+    expired.setDate(today.getDate() + 1); //Set expired date to tomorrow
+    this.expired = expired;
   }
 
   login(email) {
@@ -11,14 +15,17 @@ export class LoginService {
       email: email
     }
     console.log(user);
-    let today = new Date();
-    let expired = new Date(today);
-    expired.setDate(today.getDate() + 1); //Set expired date to tomorrow
-    this.$cookies.put('user', email, { expires: expired });
-    console.log(this.$cookies.get('user'));
+    this.$cookies.put('user', email, { expires: this.expired });
     console.log(this.$cookies.get('user'));
   }
 
+  setAvatar(avatar) {
+    this.$cookies.set('avatar', avatar, { expires: this.expired });
+  }
+
+  getAvatar() {
+    return this.$cookies.get('avatar');
+  }
   isLogin() {
     return this.$cookies.get('user')
   }

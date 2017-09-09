@@ -28,17 +28,18 @@ export default class ChatroomController {
     this.$state = $state;
     this.$timeout = $timeout;
     this.room_id = $stateParams.id;
+    this.chatRoomService = chatRoomService;
     this.checkLogin(() => {
       this.initSocketIO();
     });
-    this.chatRoomService = chatRoomService;
+  }
+
+  load() {
     this.loadMsgs(this.room_id);
     this.loadUserList(this.room_id);
     this.loadChatRoomInfo(this.room_id);
-
     this.avatarKey = this.getRandomAvatarKey();
     this.myAvatar = this.getAvatarByKey(this.avatarKey);
-    console.log(this.myAvatar);
   }
 
   loadMsgs(roomid) {
@@ -66,6 +67,7 @@ export default class ChatroomController {
 
   initSocketIO() {
     this.useremail = this.loginService.getCurrUserEmail();
+    this.load();
     // 'ws://localhost:3000', {transports: ['websocket']}
     // let socket = io('http://127.0.0.1:3000?roomid=' + this.room_id);
     let socket = io('ws://127.0.0.1:3000?roomid=' + this.room_id, { transports: ['websocket'] });
@@ -190,7 +192,12 @@ export default class ChatroomController {
 
   getAvatarByKey(key) {
     // this.avatarMap
-    return this.avatarMap[key];
+    let avatar = this.loginService.getAvatar();
+    if (avatar) {
+      return avatar;
+    } else {
+      return this.avatarMap[key];
+    }
   }
 
   playAlertVoice() {
