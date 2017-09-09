@@ -1,6 +1,7 @@
-import logo from '../../../public/img/logo.png'
-import avatar from '../../../public/img/avatar/avatar1.jpg'
-import avatar2 from '../../../public/img/avatar/avatar2.jpg'
+import logo from '../../../public/img/logo.png';
+import avatar from '../../../public/img/avatar/avatar1.jpg';
+import avatar2 from '../../../public/img/avatar/avatar2.jpg';
+import audio from '../../../public/118.wav';
 import io from 'socket.io-client';
 
 const avatarMap = (ctx => {
@@ -16,6 +17,7 @@ export default class ChatroomController {
     this.logo = logo;
     this.avatar = avatar;
     this.avatar2 = avatar2;
+    this.audio = audio;
     console.log(avatar2);
     this.avatarMap = avatarMap;
     this.mode = 'room';
@@ -93,11 +95,17 @@ export default class ChatroomController {
             };
             this.loadUserList(this.room_id);
             this.loadMsgs(this.room_id);
+            this.playAlertVoice();
           }
           break;
         case 'broadcast_say':
           console.log(msg.data.username + 'say: ' + msg.data.text);
           this.msgList.push(msg.data);
+          console.log(msg);
+          let msgSender = msg.data.useremail;
+          if (msgSender !== this.useremail) {
+            this.playAlertVoice();
+          }
           this.$scope.$apply(); //this triggers a $digest
           break;
         case 'broadcast_quit':
@@ -183,6 +191,13 @@ export default class ChatroomController {
   getAvatarByKey(key) {
     // this.avatarMap
     return this.avatarMap[key];
+  }
+
+  playAlertVoice() {
+
+    let audio = new Audio(this.audio);
+    audio.play();
+
   }
 
 }
