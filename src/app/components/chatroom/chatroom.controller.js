@@ -3,12 +3,21 @@ import avatar from '../../../public/img/avatar/avatar1.jpg'
 import avatar2 from '../../../public/img/avatar/avatar2.jpg'
 import io from 'socket.io-client';
 
+const avatarMap = (ctx => {
+  let keys = ctx.keys();
+  let values = keys.map(ctx);
+  return keys.reduce((o, k, i) => { o[k] = values[i]; return o; }, {});
+})(require.context('../../../public/img/avatar', true, /.*/));
+
 export default class ChatroomController {
   constructor($scope, $stateParams, loginService, chatRoomService, $state, $timeout) {
 
+    console.log(avatarMap);
     this.logo = logo;
     this.avatar = avatar;
     this.avatar2 = avatar2;
+    console.log(avatar2);
+    this.avatarMap = avatarMap;
     this.mode = 'room';
     this.userInfo = {};
     this.msgList = [];
@@ -24,6 +33,10 @@ export default class ChatroomController {
     this.loadMsgs(this.room_id);
     this.loadUserList(this.room_id);
     this.loadChatRoomInfo(this.room_id);
+
+    this.avatarKey = this.getRandomAvatarKey();
+    this.myAvatar = this.getAvatarByKey(this.avatarKey);
+    console.log(this.myAvatar);
   }
 
   loadMsgs(roomid) {
@@ -79,6 +92,7 @@ export default class ChatroomController {
               text: msg.data.username + 'join the chatroom'
             };
             this.loadUserList(this.room_id);
+            this.loadMsgs(this.room_id);
           }
           break;
         case 'broadcast_say':
@@ -104,8 +118,15 @@ export default class ChatroomController {
   }
 
   onSubmit(msg) {
-    this.msgText = "";
+    if (!msg) return;
     this.sendRoomMsg(msg, this.room_id, this.useremail);
+    this.msgText = "";
+  }
+
+  keyPress(e) {
+    if (e.ctrlKey && e.keyCode == 13) {
+      this.onSubmit(this.msgText);
+    }
   }
 
   sendRoomMsg(text, roomId, useremail) {
@@ -151,6 +172,17 @@ export default class ChatroomController {
 
   goBack() {
     this.$state.go('roomlist');
+  }
+
+  getRandomAvatarKey() {
+    // this.avatarMap
+    let num = Math.floor(Math.random() * 20) + 1;
+    return './avatar' + num + '.jpg';
+  }
+
+  getAvatarByKey(key) {
+    // this.avatarMap
+    return this.avatarMap[key];
   }
 
 }

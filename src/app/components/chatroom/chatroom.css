@@ -22,6 +22,7 @@
 
 .logo {
     float: left;
+    cursor: pointer;
 }
 
 .logo img {
@@ -194,6 +195,7 @@
     width: -webkit-calc(100% - 14px);
     width: calc(100% - 14px);
     height: 56px;
+    resize: none;
 }
 
 .facebox {
@@ -205,13 +207,18 @@
 .sub_but {
     float: right;
     padding: 0 25px;
-    background-color: #7E90A5;
+    background-color: #2F97E1;
     outline: none;
     border: none;
     height: 32px;
     cursor: pointer;
     line-height: 30px;
     color: #FFF;
+    /* color: #1296db; */
+}
+
+.disable_sub_but {
+    background-color: grey;
 }
 
 

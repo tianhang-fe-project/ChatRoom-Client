@@ -3,13 +3,14 @@ import chatroombg from '../../../public/img/chatroombg.jpg'
 import avatar from '../../../public/img/avatar/avatar1.jpg'
 
 export default class RoomlistController {
-  constructor($state, $uibModal, loginService, chatRoomService) {
+  constructor($state, $uibModal, loginService, chatRoomService, $timeout) {
     'ngInject';
     console.log("room list ...");
     this.logo = logo;
     this.avatar = avatar;
     this.$uibModal = $uibModal;
     this.$state = $state;
+    this.$timeout = $timeout;
     this.chatroombg = chatroombg;
     this.roomList = [];
     this.loginService = loginService;
@@ -99,8 +100,10 @@ export default class RoomlistController {
   exit() {
     console.log('exit...');
     this.loginService.logout();
-    this.$state.reload();
+    this.$timeout(() => {
+      this.$state.reload();
+    }, 10)
   }
 }
 
-RoomlistController.$inject = ['$state', '$uibModal', 'loginService', 'chatRoomService'];
+RoomlistController.$inject = ['$state', '$uibModal', 'loginService', 'chatRoomService', '$timeout'];
