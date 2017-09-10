@@ -21,7 +21,7 @@
         <div class="msg_item fn-clear" ng-repeat="msg in vm.msgList">
           <div class="uface">
             <img ng-src="{{vm.myAvatar}}" width="40" height="40" alt="" ng-if="vm.useremail == msg.useremail" />
-            <img ng-src="{{vm.avatar2}}" width="40" height="40" alt="" ng-if="vm.useremail != msg.useremail" />
+            <img ng-src="{{vm.avatarMap[msg.avatar]}}" width="40" height="40" alt="" ng-if="vm.useremail != msg.useremail" />
           </div>
           <div class="item_right">
             <div class="msg" ng-class="{'own':msg.useremail == vm.useremail}">{{msg.text}}</div>
@@ -50,10 +50,10 @@
           <span>
     
             <img ng-src="{{vm.myAvatar}}" width="20" height="20"  alt="" ng-if="vm.useremail == user"/>
-            <img src="{{vm.avatar2}}" width="20" height="20"  alt="" ng-if="vm.useremail !== user"/>
+            <img src="{{vm.avatarMap[user.avatar]}}" width="20" height="20"  alt="" ng-if="vm.useremail !== user"/>
             
           </span>
-          <em class="user_name">{{user}}
+          <em class="user_name">{{user.useremail}}
               
           </em>
           <!-- <small class="online" title="online"></small> -->

@@ -145,7 +145,8 @@ export default class ChatroomController {
       username: useremail,
       text: text,
       room_id: roomId,
-      type: 'roommsg'
+      type: 'roommsg',
+      avatar: this.avatarKey
     });
   }
 
