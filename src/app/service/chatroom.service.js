@@ -16,6 +16,10 @@ export class ChatRoomService {
     return this.$http.get(this.URL + '/chatroom');
   }
 
+  fetchRoomBlacklist(roomid) {
+    return this.$http.get(this.URL + '/blacklist/' + roomid);
+  }
+
   fetchMsgList(roomid, page = 0) {
     let config = {
       params: { page: page }

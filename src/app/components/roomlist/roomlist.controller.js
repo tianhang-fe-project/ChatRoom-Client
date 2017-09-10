@@ -77,12 +77,19 @@ export default class RoomlistController {
 
   joinRoom(params) {
     console.log("on click ...");
+    console.log(params);
+    return;
     if (this.loginService.isLogin()) {
       this.$state.go('chatroom', params);
+      //check blacklist
+      let email = this.loginService.getCurrUserEmail();
+
     } else {
       this.loginService.openLoginDlg((email) => {
         console.log(email);
         this.$state.go('chatroom', params);
+        //check blacklist
+
       }, () => {});
     }
   }
@@ -97,6 +104,12 @@ export default class RoomlistController {
     }
   }
 
+  checkBlacklist(email, roomid) {
+    this.chatRoomService.fetchRoomBlacklist(roomid).then((list) => {
+      console.log(list);
+    })
+  }
+
   exit() {
     console.log('exit...');
     this.loginService.logout();
@@ -104,6 +117,8 @@ export default class RoomlistController {
       this.$state.reload();
     }, 10)
   }
+
+
 }
 
 RoomlistController.$inject = ['$state', '$uibModal', 'loginService', 'chatRoomService', '$timeout'];

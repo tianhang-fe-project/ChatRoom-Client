@@ -12,7 +12,7 @@ const avatarMap = (ctx => {
 
 export default class ChatroomController {
   constructor($scope, $stateParams, loginService, chatRoomService, $state, $timeout) {
-
+    'ngInject';
     console.log(avatarMap);
     this.logo = logo;
     this.avatar = avatar;
@@ -63,6 +63,7 @@ export default class ChatroomController {
       console.log(data.data);
       // this.userList = data.data.userList;
       this.roomAdmin = data.data.roomInfo.admin;
+      this.blacklist = data.data.roomInfo.blacklist;
     });
   }
 
@@ -172,14 +173,13 @@ export default class ChatroomController {
     this.goBack();
   }
 
-  removeUser(email) {
-    console.log(email)
-    console.log(this.useremail)
-    this.socket.emit('leave', {
-      username: email
-    });
+  removeUser(user) {
+    console.log(user)
 
-    // this.loadUserList(this.room_id);
+    this.socket.emit('leave', {
+      username: user.useremail,
+      leavetype: 'remove'
+    });
     this.$state.reload();
   }
 
@@ -217,3 +217,6 @@ export default class ChatroomController {
   }
 
 }
+
+
+ChatroomController.$inject = ['$scope', '$stateParams', 'loginService', 'chatRoomService', '$state', '$timeout'];

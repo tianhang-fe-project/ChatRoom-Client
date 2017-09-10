@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 // import chatClient from './chatclient.js'
 
 class AppCtrl {
-  constructor($scope) {
+  constructor() {
     console.log(logo);
     this.logo = logo;
     this.avatar = avatar;

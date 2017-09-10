@@ -46,11 +46,11 @@
       <ul class="user_list">
         <li class="fn-clear selected"><em>All Users</em></li>
         <li class="fn-clear" data-id="1" ng-repeat="user in vm.userList">
-          <a class="glyphicon glyphicon-remove-circle remove_icon" ng-click="vm.removeUser(user)" ng-if="(vm.roomAdmin == vm.useremail) && (user != vm.useremail)"></a>
+          <a class="glyphicon glyphicon-remove-circle remove_icon" ng-click="vm.removeUser(user)" ng-if="(vm.roomAdmin == vm.useremail) && (user.useremail != vm.useremail)"></a>
           <span>
     
-            <img ng-src="{{vm.myAvatar}}" width="20" height="20"  alt="" ng-if="vm.useremail == user"/>
-            <img src="{{vm.avatarMap[user.avatar]}}" width="20" height="20"  alt="" ng-if="vm.useremail !== user"/>
+            <img ng-src="{{vm.myAvatar}}" width="20" height="20"  alt="" ng-if="vm.useremail == user.useremail"/>
+            <img src="{{vm.avatarMap[user.avatar]}}" width="20" height="20"  alt="" ng-if="vm.useremail !== user.useremail"/>
             
           </span>
           <em class="user_name">{{user.useremail}}

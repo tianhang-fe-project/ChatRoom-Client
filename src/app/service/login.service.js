@@ -1,6 +1,6 @@
 export class LoginService {
   constructor($cookies, $uibModal) {
-    // 'ngInject';
+    'ngInject';
     this.$cookies = $cookies;
     this.$uibModal = $uibModal;
     let today = new Date();
@@ -43,6 +43,8 @@ export class LoginService {
     let modalInstance = this.$uibModal.open({
       animation: true,
       component: 'logindlg',
+      backdrop: 'static',
+      keyboard: false
     });
 
     modalInstance.result.then((email) => {
@@ -50,6 +52,21 @@ export class LoginService {
       cb(email)
     }, function() {
       cb2();
+    });
+  }
+
+  openAlert(cb) {
+    let modalInstance = this.$uibModal.open({
+      animation: true,
+      component: 'alertdlg',
+      backdrop: 'static',
+      keyboard: false
+    });
+
+    modalInstance.result.then(() => {
+      cb()
+    }, function() {
+      cb();
     });
   }
 
