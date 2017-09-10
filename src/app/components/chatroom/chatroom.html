@@ -18,10 +18,10 @@
     <div class="chat_left">
       <div class="message_box" id="message_box" scroll-glue>
 
-        <div class="msg_item fn-clear" ng-repeat="msg in vm.msgList">
+        <div class="msg_item fn-clear" ng-repeat="msg in vm.msgList track by $index">
           <div class="uface">
             <img ng-src="{{vm.myAvatar}}" width="40" height="40" alt="" ng-if="vm.useremail == msg.useremail" />
-            <img ng-src="{{vm.avatarMap[msg.avatar]}}" width="40" height="40" alt="" ng-if="vm.useremail != msg.useremail" />
+            <img ng-src="{{vm.avatarMap[vm.msgAvatarMap[msg.useremail]]}}" width="40" height="40" alt="" ng-if="vm.useremail != msg.useremail" />
           </div>
           <div class="item_right">
             <div class="msg" ng-class="{'own':msg.useremail == vm.useremail}">{{msg.text}}</div>

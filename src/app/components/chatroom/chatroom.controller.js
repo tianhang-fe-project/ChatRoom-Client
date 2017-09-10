@@ -46,6 +46,7 @@ export default class ChatroomController {
     this.chatRoomService.fetchMsgList(roomid).then((data) => {
       console.log(data.data);
       this.msgList = data.data.messageList;
+      this.msgAvatarMap = data.data.avatarMap;
     });
   }
 
