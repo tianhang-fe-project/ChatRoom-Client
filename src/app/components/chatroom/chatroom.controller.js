@@ -78,7 +78,8 @@ export default class ChatroomController {
         username: this.useremail
       });
       this.socket.emit('join', {
-        username: this.useremail
+        username: this.useremail,
+        avatar: this.avatarKey
       });
     });
 
@@ -187,15 +188,21 @@ export default class ChatroomController {
   getRandomAvatarKey() {
     // this.avatarMap
     let num = Math.floor(Math.random() * 20) + 1;
-    return './avatar' + num + '.jpg';
+    let currKey = this.loginService.getAvatarKey();
+    if (currKey) {
+      return currKey;
+    } else {
+      return './avatar' + num + '.jpg';
+    }
   }
 
   getAvatarByKey(key) {
     // this.avatarMap
-    let avatar = this.loginService.getAvatar();
-    if (avatar) {
-      return avatar;
+    let avatarKey = this.loginService.getAvatarKey();
+    if (avatarKey) {
+      return this.avatarMap[avatarKey];
     } else {
+      this.loginService.setAvatarKey(key)
       return this.avatarMap[key];
     }
   }

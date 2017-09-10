@@ -19,11 +19,11 @@ export class LoginService {
     console.log(this.$cookies.get('user'));
   }
 
-  setAvatar(avatar) {
-    this.$cookies.set('avatar', avatar, { expires: this.expired });
+  setAvatarKey(avatar) {
+    this.$cookies.put('avatar', avatar, { expires: this.expired });
   }
 
-  getAvatar() {
+  getAvatarKey() {
     return this.$cookies.get('avatar');
   }
   isLogin() {
