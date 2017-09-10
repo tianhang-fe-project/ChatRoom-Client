@@ -115,6 +115,7 @@ export default class ChatroomController {
           if (msgSender !== this.useremail) {
             this.playAlertVoice();
           }
+          this.loadMsgs(this.room_id);
           this.$scope.$apply(); //this triggers a $digest
           break;
         case 'broadcast_quit':
