@@ -29,8 +29,12 @@ export default class ChatroomController {
     this.$timeout = $timeout;
     this.room_id = $stateParams.id;
     this.chatRoomService = chatRoomService;
+
     this.checkLogin(() => {
-      this.initSocketIO();
+      let useremail = this.loginService.getCurrUserEmail();
+      this.checkBlacklist(useremail, this.room_id, () => {
+        this.initSocketIO();
+      })
     });
   }
 
@@ -155,11 +159,13 @@ export default class ChatroomController {
   checkLogin(cb) {
     if (!this.loginService.isLogin()) {
       this.loginService.openLoginDlg((email) => {
+
         cb();
       }, () => {
         this.$state.go('roomlist');
       });
     } else {
+
       cb();
     }
   }
@@ -214,6 +220,22 @@ export default class ChatroomController {
     let audio = new Audio(this.audio);
     audio.play();
 
+  }
+
+  checkBlacklist(email, roomid, successCallback) {
+    this.chatRoomService.fetchRoomBlacklist(roomid).then((data) => {
+      let blacklist = data.data.blacklist.blacklist;
+      console.log(blacklist);
+      if (blacklist.indexOf(email) >= 0) {
+        //open dlg
+        this.loginService.openAlert(() => {
+          this.$state.go('roomlist');
+        });
+      } else {
+        // this.$state.go('chatroom', { id: roomid });
+        successCallback();
+      }
+    })
   }
 
 }

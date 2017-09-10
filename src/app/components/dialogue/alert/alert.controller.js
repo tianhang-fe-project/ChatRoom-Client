@@ -3,7 +3,7 @@ export default class AlertDlgController {
 
   }
 
-  cancel() {
+  ok() {
     console.log("cancel");
     this.dismiss({ $value: 'cancel' });
   }

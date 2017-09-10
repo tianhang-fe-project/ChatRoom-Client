@@ -61,11 +61,6 @@ export default class RoomlistController {
       name: roomName,
       admin: email
     };
-    console.log(email);
-    // this.roomList.push(room);
-
-    // console.log(currUser);
-    console.log(room);
     //call api
     this.chatRoomService.createChatRoom(room).then((data) => {
       console.log(data);
@@ -78,18 +73,15 @@ export default class RoomlistController {
   joinRoom(params) {
     console.log("on click ...");
     console.log(params);
-    return;
+    const join_room_id = params.id;
     if (this.loginService.isLogin()) {
-      this.$state.go('chatroom', params);
-      //check blacklist
       let email = this.loginService.getCurrUserEmail();
+      this.checkBlacklist(email, join_room_id)
 
     } else {
       this.loginService.openLoginDlg((email) => {
         console.log(email);
-        this.$state.go('chatroom', params);
-        //check blacklist
-
+        this.checkBlacklist(email, join_room_id)
       }, () => {});
     }
   }
@@ -105,8 +97,18 @@ export default class RoomlistController {
   }
 
   checkBlacklist(email, roomid) {
-    this.chatRoomService.fetchRoomBlacklist(roomid).then((list) => {
-      console.log(list);
+    this.chatRoomService.fetchRoomBlacklist(roomid).then((data) => {
+      let blacklist = data.data.blacklist.blacklist;
+      console.log(blacklist);
+      if (blacklist.indexOf(email) >= 0) {
+        //open dlg
+        this.loginService.openAlert(() => {
+
+        });
+
+      } else {
+        this.$state.go('chatroom', { id: roomid });
+      }
     })
   }
 
