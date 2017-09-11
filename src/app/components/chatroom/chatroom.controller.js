@@ -76,7 +76,7 @@ export default class ChatroomController {
     this.load();
     // 'ws://localhost:3000', {transports: ['websocket']}
     // let socket = io('http://127.0.0.1:3000?roomid=' + this.room_id);
-    let socket = io('ws://127.0.0.1:3000?roomid=' + this.room_id, { transports: ['websocket'] });
+    let socket = io('ws://127.0.0.1:8080?roomid=' + this.room_id, { transports: ['websocket'] });
     this.socket = socket;
     socket.on('connect', () => {
       console.log("connect ...");

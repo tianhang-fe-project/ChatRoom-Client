@@ -2,8 +2,7 @@ export class ChatRoomService {
   constructor($http) {
     'ngInject';
     this.$http = $http;
-    this.URL = 'http://127.0.0.1:8080/api';
-    // this.URL = 'http://127.0.0.1:3000';
+    this.URL = 'http://127.0.0.1:8080';
   }
 
   createChatRoom(roomInfo) {
